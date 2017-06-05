@@ -25,31 +25,33 @@ Use the following snippet to declare a new enumeration:
 ..  sourcecode:: php
 
     <?php
-        final class FavoriteColor implements Serializable
-        {
-            use EnumTrait;
 
-            private $RED;
-            private $BLUE;
-            private $GREEN;
-        }
+    final class FavoriteColor implements Serializable
+    {
+        use EnumTrait;
 
-        $red    = FavoriteColor::RED();
-        $red2   = FavoriteColor::RED();
-        $red3   = unserialize(serialize($red));
-        $red4   = clone $red;
-        $blue   = FavoriteColor::BLUE();
+        private $RED;
+        private $BLUE;
+        private $GREEN;
+    }
 
-        // Compare two distinct values
-        var_dump($red == $blue); // False
+    $red    = FavoriteColor::RED();
+    $red2   = FavoriteColor::RED();
+    $red3   = unserialize(serialize($red));
+    $red4   = clone $red;
+    $blue   = FavoriteColor::BLUE();
 
-        // Compare various instances of the same value
-        var_dump($red == $red2); // True
-        var_dump($red == $red3); // True
-        var_dump($red == $red4); // True
+    // Compare two distinct values
+    var_dump($red == $blue); // False
 
-        // Get the enum's value name
-        var_dump($red->getName()); // "RED"
+    // Compare various instances of the same value
+    var_dump($red == $red2); // True
+    var_dump($red == $red3); // True
+    var_dump($red == $red4); // True
+
+    // Get the enum's value name
+    var_dump($red->getName()); // "RED"
+
     ?>
 
 
@@ -63,9 +65,11 @@ This component was designed to achieve the following goals:
     ..  sourcecode:: php
 
         <?php
-            function displayUsingFavoriteColor(FavoriteColor $color, $message) {
-                // ...
-            }
+
+        function displayUsingFavoriteColor(FavoriteColor $color, $message) {
+            // ...
+        }
+
         ?>
 
 *   Make it possible to extend an existing enum to add new values.
@@ -81,10 +85,12 @@ This component was designed to achieve the following goals:
     ..  sourcecode:: php
 
         <?php
-            class MyEnum extends SomeInferiorEnum
-            {
-                const VALUE1 = 'value1';
-            }
+
+        class MyEnum extends SomeInferiorEnum
+        {
+            const VALUE1 = 'value1';
+        }
+
         ?>
 
 *   Turn enumeration values into opaque values.
