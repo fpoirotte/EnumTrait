@@ -10,7 +10,7 @@ Installation
 This component relies on `Composer <https://getcomposer.org/>`_
 for its installation.
 
-To use the EnumTrait in your project, just add a requirements on the package:
+To use the Enum Trait in your project, just add a requirement on the package:
 
 ..  sourcecode:: bash
 
@@ -25,6 +25,8 @@ Use the following snippet to declare a new enumeration:
 ..  sourcecode:: php
 
     <?php
+
+    use \fpoirotte\EnumTrait;
 
     final class FavoriteColor implements Serializable
     {
