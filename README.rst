@@ -52,7 +52,7 @@ Use the following snippet to declare a new enumeration:
     var_dump($red == $red4); // True
 
     // Get the enum's value name
-    var_dump($red->getName()); // "RED"
+    var_dump((string) $red); // "RED"
 
     ?>
 

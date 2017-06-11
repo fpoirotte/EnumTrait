@@ -93,12 +93,13 @@ trait EnumTrait
         }
     }
 
-    final public function getName()
+    public function __toString()
     {
         if (!isset($this)) {
             $args = func_get_args();
             return self::__callStatic(__FUNCTION__, $args);
         }
+
         return $this->{"!\x00"};
     }
 }

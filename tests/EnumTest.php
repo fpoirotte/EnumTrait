@@ -83,4 +83,9 @@ class EnumTest extends TestCase
         $this->expectExceptionMessage('Invalid value for enum: YELLOW');
         Colors::YELLOW();
     }
+
+    public function testStringConversion()
+    {
+        $this->assertEquals("RED", (string) Colors::RED());
+    }
 }
