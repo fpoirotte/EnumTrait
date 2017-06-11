@@ -77,10 +77,12 @@ class EnumTest extends TestCase
         $this->assertNotSame($red1, $red2);
     }
 
+    /**
+     * @expectedException           InvalidArgumentException
+     * @expectedExceptionMessage    Invalid value for enum: YELLOW
+     */
     public function testInvalidValues()
     {
-        $this->expectException('InvalidArgumentException');
-        $this->expectExceptionMessage('Invalid value for enum: YELLOW');
         Colors::YELLOW();
     }
 
