@@ -88,4 +88,16 @@ class EnumTest extends TestCase
     {
         $this->assertEquals("RED", (string) Colors::RED());
     }
+
+    public function testExportAndImport()
+    {
+        $red1   = Colors::RED();
+        $dump   = var_export($red1, true);
+        $red2   = eval("return $dump;");
+
+        // Exporting a value produces an equal copy.
+        // Depending on whether the trait was already loaded or not,
+        // this may also produce an exact copy.
+        $this->assertEquals($red1, $red2);
+    }
 }

@@ -102,4 +102,13 @@ trait EnumTrait
 
         return $this->{"!\x00"};
     }
+
+    public static function __set_state($properties)
+    {
+        if (!isset($properties["!\x00"])) {
+            throw new \InvalidArgumentException('Invalid properties');
+        }
+
+        return self::__callStatic($properties["!\x00"], false);
+    }
 }
