@@ -17,7 +17,7 @@ trait EnumTrait
             $reflector  = new \ReflectionClass(__CLASS__);
 
             if (!$reflector->hasProperty($value)) {
-                return null;
+                throw new \InvalidArgumentException('Invalid value for enum: ' . $value);
             }
 
             $res = new self($value);
