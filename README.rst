@@ -78,7 +78,7 @@ This component was designed to achieve the following goals:
     This is made dead easy by class inheritance.
     Preventing this is also easy thanks to the ``final`` keyword.
 
-*   Remove the need for an actual value. Intrisically, a label
+*   Remove the need for an actual value. Intrinsically, a label
     ought to be enough to figure out the meaning of a specific
     enum instance. This also avoids repetition.
 
@@ -98,8 +98,8 @@ This component was designed to achieve the following goals:
 *   Turn enumeration values into opaque values.
     This is actually a consequence from the previous goal.
 
-    This prevents developers from using the value directly
-    (``if ($enumValue == 1) { /* ... */ }``), which in turn
+    This prevents developers from using the value directly, eg.
+    ``if ($enumValue == 1) { /* ... */ }``, which in turn
     prevents subtle bugs whenever the underlying value/type evolves.
 
 *   Make it possible to compare enumeration values directly,
