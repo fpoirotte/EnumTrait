@@ -14,14 +14,14 @@ trait EnumTrait
         static $values = array();
 
         if ($nocache || !isset($values[$value])) {
-            $reflector  = new \ReflectionClass(__CLASS__);
+            $cls = get_called_class();
+            $reflector  = new \ReflectionClass($cls);
 
             if (!$reflector->hasProperty($value)) {
-                $cls = __CLASS__;
                 throw new \InvalidArgumentException("Invalid value for enum $cls: $value");
             }
 
-            $res = new self($value);
+            $res = new static($value);
             if (!$nocache) {
                 $values[$value] = $res;
             }

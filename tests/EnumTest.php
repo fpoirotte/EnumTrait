@@ -12,7 +12,7 @@ final class Colors implements Serializable
     private $GREEN;
 }
 
-final class OldColors
+final class OldSerializableColors
 {
     use EnumTrait;
 
@@ -35,6 +35,8 @@ class EnumTest extends TestCase
         $blue = Colors::BLUE();
         $red0 = Colors::RED(true);
 
+        $otherRed = OldSerializableColors::RED();
+
         // By default, instances are cached, so the two instances
         // are actually identical.
         $this->assertSame($red1, $red2);
@@ -45,6 +47,10 @@ class EnumTest extends TestCase
         // will be equal, but not identical.
         $this->assertNotSame($red1, $red0);
         $this->assertEquals($red1, $red0);
+
+        // Different classes result in different enums,
+        // even if they define the same labels.
+        $this->assertNotEquals($red1, $otherRed);
     }
 
     public function testCloning()
@@ -59,7 +65,7 @@ class EnumTest extends TestCase
 
     public function testOldSerialization()
     {
-        $red1   = OldColors::RED();
+        $red1   = OldSerializableColors::RED();
         $red2   = unserialize(serialize($red1));
 
         // Serialization produces equal (but unidentical) copies.
