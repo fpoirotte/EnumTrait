@@ -14,7 +14,7 @@ trait EnumTrait
         static $values = array();
 
         if ($nocache || !isset($values[$value])) {
-            $reflector  = new ReflectionClass(__CLASS__);
+            $reflector  = new \ReflectionClass(__CLASS__);
 
             if (!$reflector->hasProperty($value)) {
                 return null;
