@@ -105,10 +105,17 @@ trait EnumTrait
 
     public static function __set_state($properties)
     {
-        if (!isset($properties["!\x00"])) {
+        if (!isset($properties["!\x00"]) && !isset($properties["!"])) {
             throw new \InvalidArgumentException('Invalid properties');
         }
 
-        return self::__callStatic($properties["!\x00"], false);
+        if (isset($properties["!\x00"])) {
+            return self::__callStatic($properties["!\x00"], false);
+        } else {
+            // Older versions of PHP (5.x) are not binary-safe when calling
+            // __set_state() and will thus strip the trailing NUL byte.
+            return self::__callStatic($properties["!"], false);
+        }
+
     }
 }
