@@ -13,20 +13,39 @@ trait EnumTrait
     {
         static $values = array();
 
-        if ($nocache || !isset($values[$value])) {
-            $cls = get_called_class();
-            $reflector  = new \ReflectionClass($cls);
+        $dynClass   = get_called_class();
+        $reflector  = new \ReflectionClass($dynClass);
 
-            if (!$reflector->hasProperty($value)) {
-                throw new \InvalidArgumentException("Invalid value for enum $cls: $value");
+        try {
+            $property = $reflector->getProperty($value);
+        } catch (\ReflectionException $e) {
+            throw new \InvalidArgumentException("Invalid value for enum $dynClass: $value");
+        }
+        $defClass   = $property->getDeclaringClass()->getName();
+
+        // Find all parents between the called class and the defining class.
+        $parents    = array($dynClass);
+        for ($parent = $dynClass; false !== $parent && $parent !== $defClass; $parent = get_parent_class($parent)) {
+            $parents[] = $parent;
+        }
+        $parents = array_reverse($parents);
+
+        // Now, locate the first non-abstract class between the two,
+        // starting from the defining class.
+        foreach ($parents as $parent) {
+            $reflector  = new \ReflectionClass($parent);
+            if (!$reflector->isAbstract()) {
+                break;
             }
+        }
 
-            $res = new static($value);
+        if ($nocache || !isset($values[$parent][$value])) {
+            $res = new $parent($value);
             if (!$nocache) {
-                $values[$value] = $res;
+                $values[$parent][$value] = $res;
             }
         } else {
-            $res = $values[$value];
+            $res = $values[$parent][$value];
         }
 
         return $res;

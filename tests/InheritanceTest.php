@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 use fpoirotte\EnumTrait;
 
-class Monochrome implements Serializable
+abstract class Monochrome implements Serializable
 {
     use EnumTrait;
 
@@ -11,27 +11,48 @@ class Monochrome implements Serializable
     protected $WHITE;
 }
 
-final class Grayscale extends Monochrome
+class Grayscale extends Monochrome
 {
     protected $LIGHTGRAY;
     protected $DARKGRAY;
+}
+
+final class BasicColors extends Grayscale
+{
+    protected $RED;
+    protected $BLUE;
+    protected $GREEN;
+}
+
+final class BasicColors2 extends Grayscale
+{
+    protected $BLUE;
+    protected $WHITE;
+    protected $RED;
 }
 
 class InheritanceTest extends TestCase
 {
     public function testInheritedValues()
     {
-        $black1 = Monochrome::BLACK();
-        $black2 = Grayscale::BLACK();
+        $black1 = Grayscale::BLACK();
+        $black2 = BasicColors::BLACK();
         $this->assertEquals($black1, $black2);
+    }
+
+    public function testInheritedValues2()
+    {
+        $red1 = BasicColors::RED();
+        $red2 = BasicColors2::RED();
+        $this->assertNotEquals($red1, $red2);
     }
 
     /**
      * @expectedException           InvalidArgumentException
-     * @expectedExceptionMessage    Invalid value for enum Grayscale: ORANGE
+     * @expectedExceptionMessage    Invalid value for enum BasicColors: ORANGE
      */
     public function testInheritedException()
     {
-        Grayscale::ORANGE();
+        BasicColors::ORANGE();
     }
 }
