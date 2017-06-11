@@ -79,7 +79,7 @@ class EnumTest extends TestCase
 
     /**
      * @expectedException           InvalidArgumentException
-     * @expectedExceptionMessage    Invalid value for enum: YELLOW
+     * @expectedExceptionMessage    Invalid value for enum Colors: YELLOW
      */
     public function testInvalidValues()
     {
