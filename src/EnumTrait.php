@@ -116,6 +116,5 @@ trait EnumTrait
             // __set_state() and will thus strip the trailing NUL byte.
             return self::__callStatic($properties["!"], false);
         }
-
     }
 }
