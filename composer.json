@@ -22,7 +22,7 @@
         "ext-Reflection": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": ">=7.0",
         "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
