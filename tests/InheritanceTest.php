@@ -47,12 +47,10 @@ class InheritanceTest extends TestCase
         $this->assertNotEquals($red1, $red2);
     }
 
-    /**
-     * @expectedException           InvalidArgumentException
-     * @expectedExceptionMessage    Invalid value for enum BasicColors: ORANGE
-     */
     public function testInheritedException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid value for enum BasicColors: ORANGE");
         BasicColors::ORANGE();
     }
 }

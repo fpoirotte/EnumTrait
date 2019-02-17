@@ -25,7 +25,7 @@ class EnumTest extends TestCase
 {
     public function testInstanciation()
     {
-        $this->assertInternalType('object', Colors::RED());
+        $this->assertInstanceOf(\Colors::CLASS, Colors::RED());
     }
 
     public function testIdentity()
@@ -83,12 +83,10 @@ class EnumTest extends TestCase
         $this->assertNotSame($red1, $red2);
     }
 
-    /**
-     * @expectedException           InvalidArgumentException
-     * @expectedExceptionMessage    Invalid value for enum Colors: YELLOW
-     */
     public function testInvalidValues()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid value for enum Colors: YELLOW");
         Colors::YELLOW();
     }
 
